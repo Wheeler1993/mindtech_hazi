@@ -1,11 +1,14 @@
 <div class="filter-bar">
-    <span class="filter-label">Filter by status:</span>
-    <select [(ngModel)]="this.statusFilterRaw" (change)="filterByStatus()">
-        <option [value]="''">None</option>
-        @for (status of bookStatuses; track $index) {
-        <option [selected]="statusFilterRaw === status">{{status}}</option>
-        }
-    </select>
+    <button (click)="navigateToAddNewBook()">Create book</button>
+    <div class="filter-container">
+        <span class="filter-label">Filter by status:</span>
+        <select [(ngModel)]="this.statusFilter">
+            <option [value]="''">All</option>
+            @for (status of bookStatuses; track $index) {
+            <option [selected]="statusFilter() === status">{{status}}</option>
+            }
+        </select>
+    </div>
 </div>
 
 <table class="book-list">
@@ -26,6 +29,7 @@
                 }
             </select>
         </td>
+        <td><button (click)="deleteBook(book.id)"> Delete</button></td>
     </tr>
     }
 </table>

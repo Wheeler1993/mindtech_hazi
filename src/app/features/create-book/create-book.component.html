@@ -1,0 +1,46 @@
+<h1 class="header">Create book</h1>
+<div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <label for="title">Title:</label>
+
+            <div class="field-container">
+                <input id="title" formControlName="title" />
+
+                @if (form.get('title')?.touched
+                && form.get('title')?.invalid
+                && form.get('title')?.hasError('required')
+                ){
+                <small>Title is required.</small>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="author">Author:</label>
+
+            <div class="field-container">
+                <input id="author" formControlName="author" />
+
+                @if (form.get('author')?.touched
+                && form.get('author')?.invalid
+                && form.get('author')?.hasError('required')
+                ){
+                <small>Author is required.</small>
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="status">Status:</label>
+            
+            <select formControlName="status">
+                <option [value]="''">None</option>
+                @for (status of bookStatuses; track $index) {
+                <option>{{status}}</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" [disabled]="form.invalid">Submit</button>
+    </form>
+</div>

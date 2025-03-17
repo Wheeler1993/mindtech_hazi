@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { Book, BookStatus } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -14,23 +15,24 @@ export class BookListComponent {
   filteredBooks = computed(() =>
     this.books().filter(b => !this.statusFilter() || b.status === this.statusFilter())
   );
-
-  bookStatuses: BookStatus[] = ['Read', 'Want to Read'];
-
-  statusFilterRaw: BookStatus = '';
   statusFilter = signal<BookStatus>('');
 
-
-  constructor(private bookService: BookService) {
+  bookStatuses: BookStatus[] = ['Read', 'Want to Read'];
+  constructor(private bookService: BookService, private router: Router) {
     this.books.set(this.bookService.getBookList());
   }
 
-  filterByStatus() {
-    this.statusFilter.set(this.statusFilterRaw)
-  }
-
   saveBooks() {
-    this.bookService.updateBookList(this.books());
+    this.bookService.persistBookList(this.books());
   }
 
+  navigateToAddNewBook() {
+    this.router.navigate(['create']);
+  }
+
+  deleteBook(id: number) {
+    const updatedBooks = this.books().filter(book => book.id !== id);
+    this.books.set(updatedBooks);
+    this.saveBooks();
+  }
 }
