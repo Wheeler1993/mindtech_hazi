@@ -1,0 +1,31 @@
+<div class="filter-bar">
+    <span class="filter-label">Filter by status:</span>
+    <select [(ngModel)]="this.statusFilterRaw" (change)="filterByStatus()">
+        <option [value]="''">None</option>
+        @for (status of bookStatuses; track $index) {
+        <option [selected]="statusFilterRaw === status">{{status}}</option>
+        }
+    </select>
+</div>
+
+<table class="book-list">
+    <tr class="header-row">
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+    </tr>
+    @for (book of filteredBooks(); track $index) {
+    <tr>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>
+            <select [(ngModel)]="book.status" (change)="saveBooks()">
+                <option [selected]="book.status === null" [value]="''">None</option>
+                @for (status of bookStatuses; track $index) {
+                <option [selected]="book.status === status">{{status}}</option>
+                }
+            </select>
+        </td>
+    </tr>
+    }
+</table>

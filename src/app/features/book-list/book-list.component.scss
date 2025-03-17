@@ -1,0 +1,17 @@
+.book-list {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+}
+
+.filter-bar{
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+}
+
+.filter-label{
+    margin-right: 5px;
+}

@@ -1,0 +1,21 @@
+.app-root {
+    background-color: lightgray;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.app-container {
+    max-width: 650px;
+    margin: auto;
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 575px) {
+    .app-container {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
